@@ -5,7 +5,7 @@ import fr.polytech.sim.transport.Vehicle;
 /**
  * Abstract bike.
  */
-public abstract class Bike extends Vehicle {
+public abstract class Bike extends Vehicle  {
 
     @Override
     public double getPush() {
