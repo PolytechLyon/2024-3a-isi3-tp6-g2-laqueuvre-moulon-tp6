@@ -92,7 +92,16 @@ Noms des étudiants du binôme :
 > Puis on modifie dans le fichier ```fr.polytech.sim.cycling.Bike``` la classe pour mettre la classe `TagAlongBike` à la place de `SimpleBike`.
 
 #### Peut-on avoir plusieurs lignes dans le fichier fr.polytech.sim.cycling.Bike ? À quoi correspond chaque de ces lignes ?
-> 
+> Oui, on peut avoir plusieurs lignes dans le fichier `META-INF/services/fr.polytech.sim.cycling.Bike`.
+> Les différentes lignes fon réfèrence à différentes implémentations de l'interface `Bike`.
+> Lorsque le ``ServiceLoader`` est utilisé pour charger les services, il retourne un itérateur sur toutes les classes listées dans le fichier.
 
 
 ## Exercices 9
+#### Observez le type de retour de la méthode injectAll(). Quel patron de conception propose cette méthode pour parcourir tous les objets d'un type donné disponibles dans le contexte applicatif ?
+> La méthode `injectAll(Class<T> klass)` retourne un `Iterator<T>`, 
+> elle propose donc le patron de conception **itérateur** pour parcourir tous les objets d'un type donné disponibles dans le contexte applicatif.
+
+#### Réaliser cette méthode en cohérence avec son objectif décrit ci-dessus et détaillé dans sa documentation.
+
+#### Modifiez la simulation de vélo pour utiliser cette même méthode afin de simuler tous les types de vélo presénts dans la configuration. Modifiez la configuration pour simuler et SimpleBike et TagAlongBike.
