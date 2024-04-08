@@ -17,7 +17,7 @@ public abstract class NamedLogger implements Logger {
     }
 
     public void log(String format, Object... args) {
-        String message = this.construction_du_log(format);
+        String message = this.construction_du_log(format, args);
         this.ecriture_du_log(message);
     }
 

@@ -16,15 +16,15 @@ public class Application {
      */
     public static void main(String... args) {
 
-        //new BikeSimulator().run();
+        new BikeSimulator().run();
 
-        NamedLogger fileLogger = new FileLogger("FileLogger");
+        /*NamedLogger fileLogger = new FileLogger("FileLogger");
         fileLogger.log("Hello", "world");
 
         System.out.println("--------------------");
 
         NamedLogger consoleLogger = new ConsoleLogger("ConsoleLogger");
-        consoleLogger.log("Hello", "world");
+        consoleLogger.log("Hello", "world");*/
 
     }
 }

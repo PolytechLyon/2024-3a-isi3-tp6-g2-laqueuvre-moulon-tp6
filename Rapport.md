@@ -79,5 +79,20 @@ Noms des étudiants du binôme :
 ## Exercices 7
 
 ## Exercices 8
+#### Quel patron de conception suit la classe Context vis-à-vis l'outil ServiceLoader ?
+> La classe Context adapte l'outil ```ServiceLoader``` grâce au patron de conception **adaptateur avec délégation**.
+
+#### Utilisez la classe utilitaire Context pour injecter un objet de type Bike dans la simulation, au lieu de l'instancier avec le mot clef new. Changez la classe injectée de SimpleBike à TagAlongBike.
+> Dans la classe `BikeSimulator`, on utilise la classe `Context` pour injecter un objet de type `Bike` dans la simulation :
+> ```java
+> Context ctx = new Context();
+> Bike bike = ctx.inject(Bike.class);
+>```
+> 
+> Puis on modifie dans le fichier ```fr.polytech.sim.cycling.Bike``` la classe pour mettre la classe `TagAlongBike` à la place de `SimpleBike`.
+
+#### Peut-on avoir plusieurs lignes dans le fichier fr.polytech.sim.cycling.Bike ? À quoi correspond chaque de ces lignes ?
+> 
+
 
 ## Exercices 9
