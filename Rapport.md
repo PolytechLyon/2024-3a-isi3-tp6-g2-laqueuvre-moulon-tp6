@@ -1,6 +1,8 @@
 # Compte Rendu du TP 1 : Patrons de Conceptions
 
 Noms des étudiants du binôme :
+- LAQUEUVRE Damien
+- MOULON Florent
 
 ## Exercices 1
 
@@ -18,4 +20,4 @@ Noms des étudiants du binôme :
 
 ## Exercices 8
 
-
+## Exercices 9
