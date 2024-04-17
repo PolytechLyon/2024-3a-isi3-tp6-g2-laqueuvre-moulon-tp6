@@ -6,9 +6,10 @@ Noms des étudiants du binôme :
 
 ## Exercices 1
 > Le patron de conception utilisé ici est un patron composite, 
-> L'interface composante est l'interface `MobileObject` , la feuille est la classe `Wheel` et les composites sont tous les `Vehicle`. Ces deux dernières imlémentant `MobileObject`, la classe `SimpleBike`, hérite de `Bike` elle même héritant de `Vehicle` possède des roues.
+> L'interface composante est l'interface `MobileObject` , la feuille est la classe `Wheel` et les composites sont tous les `Vehicle`. En effet, ces deux dernières classes imlémentent `MobileObject`, la classe `SimpleBike`, hérite de `Bike` elle même héritant de `Vehicle` qui possède des roues.
 
-(ajouter diagramme de classe)
+![Diagramme de classe](images/diagramme_question_1.png)
+
 > Pour la classe `TagAlongBike`, elle hérite de `SimpleBike` et à un attribut `SimpleBike` correspondant au vélo de l'enfant. 
 > Nous n'avons rien à changer sur les algorithmes, car les fonctions calculent déjà leur valeur en prennant en compte chacunes des composantes (en sommant pour la masse et donc pour le calcul de la vitesse). 
 
@@ -25,7 +26,12 @@ Noms des étudiants du binôme :
 > Nous n'avons pas besoin de modifier l'implementation de la méthode ``getVelocity()`` car elle utilise déjà un itérateur pour parcourir les composants du véhicule.
 > Elle est donc indépendante de la structure de donnée utilisée pour stocker les composants puisques les deux classes (`Set` et `List`) implémentent l'interface ``Iterable``.
 
+
+## Exercices 3
+> L'objectif du pattern singleton est de toujours avoir une seule instance maximum de la classe. 
 > Pour construire un pattern singleton nous avons écrit le code suivant. 
+> Nous pouvons dérouler comment se passe un appel. 
+> Ici lors d'un appel `getTime()` (via un appel de classe et pas d'instance, car la fonction est `static`) celle-ci vérifie si une instance de classe existe déjà, si non elle en créé une nouvelle avant de renvoyer le temps.  
 ```java
 public final class Clock {
     private static Clock c;
@@ -52,12 +58,11 @@ public final class Clock {
 }
 ```
 
-## Exercices 3
-// mettre le code
+
 
 ## Exercices 4
 #### Les classes Bike et Wheel, appartiennent-elles au même paquetage[^3] ? Quel type de dépendance y a-t-il entre les deux classes ? Cette dépendance adhère-t-elle aux bonnes pratiques de conception ?
-> Les classes `Bike` et `Wheel` n'appartiennent pas au même paquet age. En effet :
+> Les classes `Bike` et `Wheel` n'appartiennent pas au même paquetage. En effet :
 > - `Bike` appartient au paquet `fr.polytech.sim.cycling`
 > - alors que `Wheel` appartient au paquet `fr.polytech.sim.transport`
 > 
@@ -69,7 +74,7 @@ public final class Clock {
 
 #### Quelle fonctionnalité de la classe Bike utilise la classe Wheel ? Y a-t-il déjà une abstraction de la classe Bike qui isole cette fonctionnalité ? Dans quel paquetage se trouve cette abstraction ?
 > La classe `Bike` utilise la méthode `getMass()` et `getVelocity()` de la classe `Wheel` pour calculer la masse du vélo.
-> Cette fonctionalité est absstraite dans la classe abstraite `Vehicule` qui se trouve dans le paquetage `fr.polytech.sim.transport`.
+> Cette fonctionalité est abstraite dans la classe abstraite `Vehicule` qui se trouve dans le paquetage `fr.polytech.sim.transport`.
 
 #### Proposez, et réalisez, une solution pour casser la dépendance cyclique entre les classes Bike et Wheel.
 > Pour casser la dépendance cyclique entre les classes `Bike` et `Wheel`, nous allons utiliser une abstraction de la fonctionalité `getPush()` de `Bike` (qui est utilisée par `Wheel`) que nous mettrons dans le paquetage `transport`.
@@ -77,15 +82,15 @@ public final class Clock {
 > 
 > Par chance, cette abstraction existe déjà dans la classe abstraite `Vehicule` qui se trouve dans le paquetage `fr.polytech.sim.transport`.
 > Il nous suffit donc de mofiier la variable `drive` de ``Wheel`` pour qu'elle soit de type `Vehicule` et non plus de type `Bike`.
-> Ce changement suffis car `Vehicule` contient déjà la méthode `getPush()` qui est utilisée par `Wheel` et `Bike` implémente déjà cette méthode.
+> Ce changement suffit car `Vehicule` contient déjà la méthode `getPush()` qui est utilisée par `Wheel` et `Bike` implémente déjà cette méthode.
 
 
 ## Exercices 5
 > On utilise le patron de conception patron de méthode pour centraliser l'étape commune des 2 classes à un seul endroit.
 > Pour ce faire, on découpe la méthode `log()` en 2 méthodes : `construction_du_log()` et `ecriture_du_log()`. 
 > 
-> La méthode ``log()`` devient alors notre **patron de méthose** qui appelle les 2 méthodes `construction_du_log()` et `ecriture_du_log()` :
-> L'étape commune de fabrication du message final est donc centralisée dans la méthode `construction_du_log()` et implémenter directement dans las classe abstraite ``NamedLogger``.
+> La méthode ``log()`` devient alors notre **patron de méthode** qui appelle les 2 méthodes `construction_du_log()` et `ecriture_du_log()` :
+> L'étape commune de fabrication du message final est donc centralisée dans la méthode `construction_du_log()` et implémentée directement dans la classe abstraite ``NamedLogger``.
 > 
 > 
 > La méthode `ecriture_du_log()` est quant à elle abstraite et doit être implémentée par les classes filles.
@@ -119,7 +124,7 @@ public final class Clock {
     }
 ```
 
-> La différence avec le pattern Singleton est que, si de la même manière nous avons une méthode statique à laquelle nous faisons appel, notre pattern instancie autant de classe qu'il y a d'appel. Comme nous avons un seul décorateur nous n'avons pas fait appel à un décorateur abstrait pour avoir du polymorphisme. 
+> La différence avec le pattern Singleton est que, si de la même manière nous avons une méthode statique à laquelle nous faisons appel, notre pattern instancie autant de classe qu'il existe d'appel. Comme dans notre cas nous n'avons qu'un seul décorateur nous n'avons pas créé de décorateur abstrait pour avoir du polymorphisme. 
 
 ## Exercices 7
 > Nous créons la classe suivante : 
@@ -146,6 +151,7 @@ public class TimestampedLoggerDecorator implements Logger {
         return new TimestampedLoggerDecorator(l);
     }
 ```
+> Cette fonctionalité marche peut importe le type de `logger` (console ou file) car elles implémentent toutes l'interface `logger`, qui est la classe à laquelle nous faisons appel. 
 
 ## Exercices 8
 #### Quel patron de conception suit la classe Context vis-à-vis l'outil ServiceLoader ?
