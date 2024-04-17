@@ -119,10 +119,33 @@ public final class Clock {
     }
 ```
 
-> La différence avec le pattern Singleton est que, si nous avons une méthode statique à laquelle nous faisons appel, notre pattern instancie autant de classe qu'il y a d'appel. 
+> La différence avec le pattern Singleton est que, si de la même manière nous avons une méthode statique à laquelle nous faisons appel, notre pattern instancie autant de classe qu'il y a d'appel. Comme nous avons un seul décorateur nous n'avons pas fait appel à un décorateur abstrait pour avoir du polymorphisme. 
 
 ## Exercices 7
+> Nous créons la classe suivante : 
+```java
+package fr.polytech.sim.log;
 
+public class TimestampedLoggerDecorator implements Logger {
+    private Logger logger;
+
+    protected TimestampedLoggerDecorator(Logger logger) {
+        this.logger = logger;
+    }
+
+    @Override
+    public void log(String format, Object... args) {
+        logger.log(java.time.LocalDateTime.now() + " : " + format, args);
+    }
+}
+```
+> Puis nous modifions notre appel dans le logger pour intégrer le décorateur : 
+```java
+    static Logger getLogger(String name) {
+        Logger l = new ConsoleLogger(name);
+        return new TimestampedLoggerDecorator(l);
+    }
+```
 
 ## Exercices 8
 #### Quel patron de conception suit la classe Context vis-à-vis l'outil ServiceLoader ?
