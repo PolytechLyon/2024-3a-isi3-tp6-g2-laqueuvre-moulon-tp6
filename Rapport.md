@@ -168,7 +168,7 @@ public class TimestampedLoggerDecorator implements Logger {
 
 #### Peut-on avoir plusieurs lignes dans le fichier fr.polytech.sim.cycling.Bike ? À quoi correspond chaque de ces lignes ?
 > Oui, on peut avoir plusieurs lignes dans le fichier `META-INF/services/fr.polytech.sim.cycling.Bike`.
-> Les différentes lignes fon réfèrence à différentes implémentations de l'interface `Bike`.
+> Les différentes lignes font référence à différentes implémentations de l'interface `Bike`.
 > Lorsque le ``ServiceLoader`` est utilisé pour charger les services, il retourne un itérateur sur toutes les classes listées dans le fichier.
 
 
