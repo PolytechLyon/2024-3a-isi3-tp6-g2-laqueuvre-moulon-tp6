@@ -5,8 +5,15 @@ Noms des étudiants du binôme :
 - MOULON Florent
 
 ## Exercices 1
+> Le patron de conception utilisé ici est un patron composite, 
+> L'interface composante est l'interface `MobileObject` , la feuille est la classe `Wheel` et les composites sont tous les `Vehicle`. Ces deux dernières imlémentant `MobileObject`, la classe `SimpleBike`, hérite de `Bike` elle même héritant de `Vehicle` possède des roues.
+
+(ajouter diagramme de classe)
+> Pour la classe `TagAlongBike`, elle hérite de `SimpleBike` et à un attribut `SimpleBike` correspondant au vélo de l'enfant. 
+> Nous n'avons rien à changer sur les algorithmes, car les fonctions calculent déjà leur valeur en prennant en compte chacunes des composantes (en sommant pour la masse et donc pour le calcul de la vitesse). 
 
 ## Exercices 2
+
 > La méthode `getVelocity()` utilise le **patron de conception itérateur** pour parcourir les composants d'un véhicule.
 > L'avantage de ce patron est qu'il permet de parcourir une collection d'objets sans exposer sa structure interne.
 > Ainsi tant qu'une class implémente l'interface `Iterable`, on peut la parcourir avec un itérateur et donc l'utiliser dans la méthode `getVelocity()` sans avoir à modifier son implémentation.
@@ -18,7 +25,35 @@ Noms des étudiants du binôme :
 > Nous n'avons pas besoin de modifier l'implementation de la méthode ``getVelocity()`` car elle utilise déjà un itérateur pour parcourir les composants du véhicule.
 > Elle est donc indépendante de la structure de donnée utilisée pour stocker les composants puisques les deux classes (`Set` et `List`) implémentent l'interface ``Iterable``.
 
+> Pour construire un pattern singleton nous avons écrit le code suivant. 
+```java
+public final class Clock {
+    private static Clock c;
+    private final int time = new Random().nextInt(25);
+
+    // On créé un constructeur privé, qui est accessible seulement à l'intérieur de
+    // la classe. Le singleton est le seul à pouvoir s'instancier (depuis getTime())
+    private Clock() {
+        super();
+    }
+
+    /**
+     * Random integer between 0 and 24 inclusive.
+     */
+    public final static int getTime() {
+        // On vérifie si un instance de Clock à déjà été créé
+        if (Clock.c == null) {
+            // Si ce n'est pas le cas nous la créons
+            Clock.c = new Clock();
+        }
+        // Puis on return time
+        return c.time;
+    }
+}
+```
+
 ## Exercices 3
+// mettre le code
 
 ## Exercices 4
 #### Les classes Bike et Wheel, appartiennent-elles au même paquetage[^3] ? Quel type de dépendance y a-t-il entre les deux classes ? Cette dépendance adhère-t-elle aux bonnes pratiques de conception ?
@@ -76,7 +111,18 @@ Noms des étudiants du binôme :
 
 ## Exercices 6
 
+> Nous centralisons dans l'interface `Logger` une méthode statique `getLogger()` qui définit le choix de la réalisation de log.
+
+```java
+    static Logger getLogger(String name) {
+        return new ConsoleLogger(name);
+    }
+```
+
+> La différence avec le pattern Singleton est que, si nous avons une méthode statique à laquelle nous faisons appel, notre pattern instancie autant de classe qu'il y a d'appel. 
+
 ## Exercices 7
+
 
 ## Exercices 8
 #### Quel patron de conception suit la classe Context vis-à-vis l'outil ServiceLoader ?
@@ -101,6 +147,8 @@ Noms des étudiants du binôme :
 #### Observez le type de retour de la méthode injectAll(). Quel patron de conception propose cette méthode pour parcourir tous les objets d'un type donné disponibles dans le contexte applicatif ?
 > La méthode `injectAll(Class<T> klass)` retourne un `Iterator<T>`, 
 > elle propose donc le patron de conception **itérateur** pour parcourir tous les objets d'un type donné disponibles dans le contexte applicatif.
+
+## Exercices 9
 
 #### Réaliser cette méthode en cohérence avec son objectif décrit ci-dessus et détaillé dans sa documentation.
 

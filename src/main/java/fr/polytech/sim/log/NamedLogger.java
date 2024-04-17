@@ -10,7 +10,7 @@ public abstract class NamedLogger implements Logger {
     /**
      * Constructor.
      *
-     * @param name  logger name.
+     * @param name logger name.
      */
     protected NamedLogger(String name) {
         this.name = name;
