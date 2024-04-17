@@ -186,7 +186,8 @@ public class TimestampedLoggerDecorator implements Logger {
 
 #### Modifiez la simulation de vélo pour utiliser cette même méthode afin de simuler tous les types de vélo presénts dans la configuration. Modifiez la configuration pour simuler et SimpleBike et TagAlongBike.
 > On modifie la simulation de vélo pour utiliser la méthode `injectAll()` afin de simuler tous les types de vélo présents dans la configuration.
-> On ajoute donc le code suivant :
+> 
+> On ajoute donc le code suivant dans ``BikeSimulator``:
 > ```java
 >        Iterator<Bike> bikes = Context.injectAll(Bike.class);
 >
@@ -196,4 +197,12 @@ public class TimestampedLoggerDecorator implements Logger {
 >            this.logger.log("Bike's speed %.2f Km/h.", bike.getVelocity());
 >            this.logger.log("Bike's mass %.2f Kg.", bike.getMass());
 >        }
+>```
+> 
+> Il a également fallu coder la méthode ``injectAll()`` dans la classe ``Context``:
+> ```java
+>     public static <T> Iterator<T> injectAll(Class<T> klass) {
+>        ServiceLoader<T> serviceLoader = ServiceLoader.load(klass);
+>        return serviceLoader.iterator();
+>    }
 >```
