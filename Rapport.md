@@ -148,8 +148,23 @@ public final class Clock {
 > La méthode `injectAll(Class<T> klass)` retourne un `Iterator<T>`, 
 > elle propose donc le patron de conception **itérateur** pour parcourir tous les objets d'un type donné disponibles dans le contexte applicatif.
 
-## Exercices 9
-
 #### Réaliser cette méthode en cohérence avec son objectif décrit ci-dessus et détaillé dans sa documentation.
+> Il nous suffit d'ajouter une nouvelle ligne contenant ``fr.polytech.sim.cycling.TagAlongBike`` au fichier ``META-INF/services/fr.polytech.sim.cycling.Bike`` qui contient donc :
+> ````
+> fr.polytech.sim.cycling.SimpleBike
+> fr.polytech.sim.cycling.TagAlongBike
+> ````
 
 #### Modifiez la simulation de vélo pour utiliser cette même méthode afin de simuler tous les types de vélo presénts dans la configuration. Modifiez la configuration pour simuler et SimpleBike et TagAlongBike.
+> On modifie la simulation de vélo pour utiliser la méthode `injectAll()` afin de simuler tous les types de vélo présents dans la configuration.
+> On ajoute donc le code suivant :
+> ```java
+>        Iterator<Bike> bikes = Context.injectAll(Bike.class);
+>
+>        while (bikes.hasNext()) {
+>            Bike bike = bikes.next();
+>            System.out.println("Simulating " + bike.getClass().getSimpleName());
+>            this.logger.log("Bike's speed %.2f Km/h.", bike.getVelocity());
+>            this.logger.log("Bike's mass %.2f Kg.", bike.getMass());
+>        }
+>```

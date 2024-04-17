@@ -4,6 +4,8 @@ import fr.polytech.sim.Simulation;
 import fr.polytech.sim.log.Logger;
 import fr.polytech.sim.utils.Context;
 
+import java.util.Iterator;
+
 /**
  * Bike simulation.
  */
@@ -21,10 +23,13 @@ public class BikeSimulator implements Simulation {
         this.logger.log("TagAlongBike's speed %.2f Km/h.", tagAlongBike.getVelocity());
         this.logger.log("TagAlongBike's mass %.2f Kg.", tagAlongBike.getMass());*/
 
-        Context ctx = new Context();
-        Bike bike = ctx.inject(Bike.class);
+        Iterator<Bike> bikes = Context.injectAll(Bike.class);
 
-        this.logger.log("Bike's speed %.2f Km/h.", bike.getVelocity());
-        this.logger.log("Bike's mass %.2f Kg.", bike.getMass());
+        while (bikes.hasNext()) {
+            Bike bike = bikes.next();
+            System.out.println("Simulating " + bike.getClass().getSimpleName());
+            this.logger.log("Bike's speed %.2f Km/h.", bike.getVelocity());
+            this.logger.log("Bike's mass %.2f Kg.", bike.getMass());
+        }
     }
 }
